@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
 
+<ul>
+    <li th:text="${ad.title}"></li>
+    <li th:text="${ad.description}"></li>
+    <li th:text="${ad.price}"></li>
+    <li th:text="${ad.sold}"></li>
+    <li th:text="${ad.author.username}"></li>
+    <li th:text="${ad.author.role}"></li>
+    <li th:text="${ad.author.email}"></li>
+</ul>
 </body>
 </html>

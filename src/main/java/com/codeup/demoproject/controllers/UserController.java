@@ -13,16 +13,7 @@ import java.util.Random;
 
 @Controller
 public class UserController {
-//    public static void main(String[] args) {
 
-
-//        List<User> users = User.findAll();
-//        for(User user : users){
-//            System.out.println(user.getString("username"));
-//        }
-
-
-//    }
     @GetMapping("/users/index")
     public String index(Model model){
         DBConfiguration.loadConfiguration("/database.properties");
@@ -33,23 +24,6 @@ public class UserController {
         Base.close();
         return "/users/index";
     }
-
-//    @GetMapping("/ads")
-//    public String ads(Model model){
-//        DBConfiguration.loadConfiguration("/database.properties");
-//        Base.open();
-//        Ad ad = Ad.findFirst("title =?","My Title");
-//        model.addAttribute("ad",ad);
-//        Base.close();
-//        return "/ads";
-//    }
-
-//    public static void main(String[] args) {
-//        DBConfiguration.loadConfiguration("/database.properties");
-//        Ad ad = Ad.findFirst("title =?","My Title");
-//
-//        Base.close();
-//    }
 
     public static void createUser(){
         DBConfiguration.loadConfiguration("/database.properties");
@@ -65,6 +39,7 @@ public class UserController {
         }else{
             System.out.println(u.errors().get("username"));
         }
+        Base.close();
     }
 
     public static void createAd(){
@@ -78,7 +53,7 @@ public class UserController {
         a.set("sold",0);
         a.set("location","san antonio");
         if(a.save()){
-            //render success page
+            System.out.println("success");
         }else{
             System.out.println(a.errors().get("username"));
         }
@@ -86,7 +61,26 @@ public class UserController {
         Base.close();
     }
 
-//    public static void main(String[] args) {
-//        createUser();
-//    }
+    @GetMapping("/users/user/{id}")
+    public String showUser(Model model, @PathVariable(name ="id")long id){
+        DBConfiguration.loadConfiguration("/database.properties");
+        Base.open();
+        User user = User.findById(id);
+        List<Ad> userAds = user.getAll(Ad.class);
+        for(Ad a : userAds){
+            System.out.println(a.getString("title"));
+            System.out.println(a.getString("description"));
+            System.out.println(a.getString("price"));
+            System.out.println(a.getString("location"));
+        }
+        model.addAttribute("user",user);
+        model.addAttribute("user-ads",userAds);
+        Base.close();
+        return "/users/show";
+    }
+
+    public static void main(String[] args) {
+        createUser();
+        createAd();
+    }
 }
