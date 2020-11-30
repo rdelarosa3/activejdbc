@@ -60,6 +60,12 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.9</version>
         </dependency>
+<!--        active web to set before and after filters-->
+        <dependency>
+            <groupId>org.javalite</groupId>
+            <artifactId>activeweb</artifactId>
+            <version>2.4-j8</version>
+        </dependency>
     </dependencies>
 
     <build>
