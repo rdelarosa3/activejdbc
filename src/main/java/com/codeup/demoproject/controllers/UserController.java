@@ -1,5 +1,4 @@
 package com.codeup.demoproject.controllers;
-import com.codeup.demoproject.controllers.config.AppControllerConfig;
 import com.codeup.demoproject.models.Ad;
 import com.codeup.demoproject.models.User;
 import org.javalite.activejdbc.Base;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 @Controller
-public class UserController extends AppControllerConfig {
+public class UserController {
 
     @GetMapping("/users/index")
     public String index(Model model){

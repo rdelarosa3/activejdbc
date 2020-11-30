@@ -4,7 +4,6 @@ import com.codeup.demoproject.models.Ad;
 import com.codeup.demoproject.models.User;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.connection_config.DBConfiguration;
-import org.javalite.activeweb.AppController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class AdController extends AppController {
+public class AdController{
     
-    public void init(){
-        DBConfiguration.loadConfiguration("/database.properties");
-        if(Base.hasConnection()) Base.close();
-        Base.open();
-    }
+//    public void init(){
+//        DBConfiguration.loadConfiguration("/database.properties");
+//        if(Base.hasConnection()) Base.close();
+//        Base.open();
+//    }
     @GetMapping("/ads")
     public String index(Model model){
-//        init();
         List<Ad> ads = Ad.findAll();
         model.addAttribute("ads",ads);
         return "ads/index";
@@ -31,9 +29,6 @@ public class AdController extends AppController {
 
     @GetMapping("/ads/{id}")
     public String showAd(@PathVariable long id,Model model){
-//        DBConfiguration.loadConfiguration("/database.properties");
-//        if(Base.hasConnection()) Base.close();
-//        Base.open();
         model.addAttribute("ad", Ad.findFirst("id =?",id));
         return "ads/show";
     }
@@ -45,7 +40,6 @@ public class AdController extends AppController {
 
     @PostMapping("/ads/new")
     public String submitAd(@RequestParam Map<String, String> requestParams,Model model){
-        init();
 //        prepare Ad
         Ad ad = new Ad();
 //        create Ad from mapping params to Ad model
@@ -66,14 +60,12 @@ public class AdController extends AppController {
 
     @GetMapping("/ads/{id}/edit")
     public String createAd(@PathVariable(name ="id") long id, Model model){
-        init();
         model.addAttribute("ad", Ad.findFirst("id =?",id));
         return "ads/edit";
     }
 
     @PostMapping("/ads/{id}/edit")
     public String submitAd(@PathVariable(name ="id") long id, Model model){
-        init();
         model.addAttribute("ad", Ad.findFirst("id =?",id));
         return "ads/edit";
     }
