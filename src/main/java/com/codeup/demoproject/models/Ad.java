@@ -22,6 +22,7 @@ public class Ad extends Model {
         set("location",location);
         set("user_id",user_id);
         set("sold",sold);
+        
     }
 
     public String getTitle() {
@@ -45,10 +46,7 @@ public class Ad extends Model {
     }
 
     public User getAuthor() {
-        DBConfiguration.loadConfiguration("/database.properties");
-        Base.open();
         User u = parent(User.class);
-        Base.close();
         return u;
     }
 

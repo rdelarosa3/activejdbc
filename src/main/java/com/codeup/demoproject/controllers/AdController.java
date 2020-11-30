@@ -8,6 +8,8 @@ import org.javalite.activejdbc.connection_config.DBConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +19,10 @@ public class AdController {
     public String index(Model model){
         DBConfiguration.loadConfiguration("/database.properties");
         Base.open();
-        Ad ad = Ad.findById(1);
-        model.addAttribute("ad", ad );
-        Base.close();
+//        Ad ad = Ad.findById(1);
+//        model.addAttribute("ad", ad );
+        List<Ad> ads = Ad.findAll();
+        model.addAttribute("ads",ads);
         return "ads/index";
     }
 
@@ -77,4 +80,10 @@ public class AdController {
         return "ads/edit";
     }
 
+    public static void main(String[] args) {
+        DBConfiguration.loadConfiguration("/database.properties");
+        Base.open();
+        List<Ad> ads = Ad.findAll();
+        Base.close();
+    }
 }
